@@ -60,7 +60,7 @@ No drivers, no installers.
 - `MIDIUSB.h` (Arduino built-in)
 - `EEPROM.h` (Arduino built-in)
 
-**Not used:** Control_Surface (it filters SysEx, breaking editor comms).
+
 
 ---
 
