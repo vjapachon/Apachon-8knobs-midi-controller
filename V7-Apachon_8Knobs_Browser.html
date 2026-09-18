@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apachon 8-Knobs Editor V7</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #1e1e2e; color: #cdd6f4; padding: 20px; }
+    .container { max-width: 1000px; margin: auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .header h1 { color: #89b4fa; }
+    .header .brand { font-size: 13px; color: #6c7086; text-align: right; line-height: 1.6; }
+    h2 { color: #89b4fa; margin-bottom: 15px; }
+    .card { background: #313244; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    .row { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+    button { background: #89b4fa; color: #1e1e2e; border: none; padding: 8px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background .15s; }
+    button:hover  { background: #b4befe; }
+    button.danger { background: #f38ba8; }
+    button.danger:hover  { background: #f9a8b8; }
+    button.success{ background: #a6e3a1; }
+    button.success:hover { background: #b8e8b4; }
+    button.warn   { background: #f9e2af; color: #1e1e2e; }
+    button.warn:hover    { background: #ffe6b0; }
+    input, select { padding: 6px 10px; border-radius: 6px; border: none; background: #45475a; color: #cdd6f4; }
+    select option { background: #313244; }
+    .badge { background: #45475a; padding: 4px 14px; border-radius: 20px; font-size: 13px; display: inline-block; }
+    .badge-ok  { background: #a6e3a1; color: #1e1e2e; }
+    .badge-err { background: #f38ba8; color: #1e1e2e; }
+    .badge-warn{ background: #f9e2af; color: #1e1e2e; }
+
+    /* STATUS PANEL */
+    .status-panel { background: #1e1e2e; border-radius: 8px; padding: 15px; border: 1px solid #45475a; }
+    .status-row { display: flex; flex-wrap: wrap; gap: 15px 40px; margin: 5px 0; }
+    .status-label { color: #a6e3a1; font-weight: bold; }
+    .status-value { color: #89b4fa; font-weight: bold; font-size: 1.1em; }
+
+    /* KNOB LIST */
+    .knob-header {
+      display: grid;
+      grid-template-columns: 65px 80px 60px 110px 150px 1fr 48px;
+      gap: 8px; padding: 2px 12px;
+      font-size: 11px; color: #6c7086; font-weight: bold; text-transform: uppercase;
+    }
+    .knob-item {
+      display: grid;
+      grid-template-columns: 65px 80px 60px 110px 150px 1fr 48px;
+      gap: 8px; align-items: center;
+      padding: 7px 12px; background: #1e1e2e;
+      border-radius: 6px; margin-bottom: 5px;
+      border-left: 3px solid #45475a; transition: background .2s, border-color .2s;
+    }
+    .knob-item.active { border-left-color: #89b4fa; background: #2a2a3e; }
+    .knob-item .idx   { font-weight: bold; color: #89b4fa; }
+    .knob-item input[type=number], .knob-item select { width: 100%; }
+    .knob-bar-wrap { height: 8px; background: #45475a; border-radius: 4px; overflow: hidden; }
+    .knob-bar { height: 100%; background: #89b4fa; border-radius: 4px; width: 0%; transition: width .08s; }
+    .val-num { font-size: 12px; color: #89b4fa; font-weight: bold; text-align: right; }
+
+    /* CURVE PREVIEWS */
+    .curve-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+    .curve-card { background: #1e1e2e; border-radius: 8px; padding: 8px 12px; border: 2px solid #45475a; text-align: center; }
+    .curve-card canvas { display: block; margin: 0 auto 4px; }
+    .curve-card .cname { font-size: 11px; font-weight: bold; }
+
+    /* LOG */
+    .log { background: #1e1e2e; padding: 10px; border-radius: 8px; font-family: monospace;
+           max-height: 220px; overflow-y: auto; border: 1px solid #45475a; font-size: 12px; margin-top: 10px; }
+    .log div { padding: 2px 0; border-bottom: 1px solid #2a2a3e; }
+    .log .err  { color: #f38ba8; }
+    .log .ok   { color: #a6e3a1; }
+    .log .rx   { color: #cba6f7; }
+    .log .tx   { color: #89dceb; }
+    .log .ack  { color: #89b4fa; }
+    .log .warn { color: #f9e2af; }
+    .port-note { font-size: 12px; color: #6c7086; margin-top: 6px; }
+
+    /* KEEPALIVE INDICATOR */
+    .ka-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+              background: #45475a; margin-left: 8px; vertical-align: middle; transition: background .3s; }
+    .ka-dot.alive { background: #a6e3a1; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>🎛️ Apachon 8‑Knobs Editor</h1>
+    <div class="brand">Apachon Browser API · V7<br>Chrome / Edge uniquement</div>
+  </div>
+
+  <!-- CONNECTION -->
+  <div class="card">
+    <h2>🔌 Connexion MIDI</h2>
+    <div class="row">
+      <div>
+        <div style="font-size:12px;color:#a6adc8;margin-bottom:4px;">Sortie → Arduino</div>
+        <select id="outSelect" style="min-width:220px;"></select>
+      </div>
+      <div>
+        <div style="font-size:12px;color:#a6adc8;margin-bottom:4px;">Entrée ← Arduino</div>
+        <select id="inSelect" style="min-width:220px;"></select>
+      </div>
+      <button id="connectBtn">Connecter</button>
+      <span id="status" class="badge">Déconnecté</span>
+      <span title="Keepalive actif" class="ka-dot" id="kaDot"></span>
+    </div>
+    <div id="portNote" class="port-note"></div>
+  </div>
+
+  <!-- LAST TOUCH -->
+  <div class="card">
+    <h2>📊 Dernier contrôle touché</h2>
+    <div class="status-panel">
+      <div class="status-row">
+        <span><span class="status-label">KNOB :</span>   <span id="tName"   class="status-value">—</span></span>
+        <span><span class="status-label">CH :</span>     <span id="tCh"     class="status-value">—</span></span>
+        <span><span class="status-label">CC :</span>     <span id="tCC"     class="status-value">—</span></span>
+        <span><span class="status-label">RAW :</span>    <span id="tRaw"    class="status-value">—</span></span>
+        <span><span class="status-label">CURVED :</span> <span id="tCurved" class="status-value">—</span></span>
+        <span><span class="status-label">MODE :</span>   <span id="tMode"   class="status-value">—</span></span>
+        <span><span class="status-label">CURVE :</span>  <span id="tCurve"  class="status-value">—</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KNOB CONFIG -->
+  <div class="card">
+    <h2>🎛️ Configuration des Knobs</h2>
+    <div class="knob-header">
+      <span>Knob</span><span>CC</span><span>Canal</span>
+      <span>Mode</span><span>Courbe</span><span>Valeur</span><span></span>
+    </div>
+    <div id="knobList"></div>
+    <div class="row" style="margin-top:15px;">
+      <button class="success" id="saveBankBtn">💾 Sauvegarder</button>
+      <button id="loadBankBtn">📂 Charger</button>
+      <button id="dumpBtn">📡 Dump</button>
+      <button class="warn" id="debugBtn">🐛 Écouter tous les ports</button>
+      <button class="danger" id="clearLogBtn">🧹 Effacer</button>
+    </div>
+  </div>
+
+  <!-- CURVE PREVIEWS -->
+  <div class="card">
+    <h2>📈 Aperçu des courbes</h2>
+    <div class="curve-row" id="curvePreviews"></div>
+  </div>
+
+  <!-- LOG -->
+  <div class="card">
+    <h2>📋 Journal</h2>
+    <div id="log" class="log">En attente de connexion...</div>
+  </div>
+
+</div>
+<script>
+'use strict';
+
+// ── CONSTANTES ────────────────────────────────────────────────
+const NUM_KNOBS   = 8;
+const SYSEX_MFRID = 0x7D;
+const SYSEX_DEVID = 0x01;
+const KEEPALIVE_MS = 3000;   // ping toutes les 3s (timeout Arduino = 6s)
+
+// Doit correspondre exactement aux #define Arduino
+const CURVE_NAMES  = ['Linéaire', 'Inverse', 'Exponentiel', 'Logarithmique', 'Smoothstep'];
+const CURVE_COLORS = ['#89b4fa',  '#f38ba8', '#a6e3a1',     '#f9e2af',       '#cba6f7'];
+
+// Fonctions miroir des courbes Arduino (pour les aperçus canvas uniquement)
+const CURVE_FN = [
+  x => x,
+  x => 127 - x,
+  x => Math.round(x * x / 127),
+  x => x === 0 ? 0 : Math.round(Math.sqrt(x / 127) * 127),
+  x => { const t = x / 127; return Math.round(t * t * (3 - 2 * t) * 127); }
+];
+
+// ── ÉTAT ──────────────────────────────────────────────────────
+let midiAccess  = null;
+let midiOutput  = null;
+let midiInput   = null;
+let keepaliveTimer = null;
+let knobConfigs = [];
+
+function initKnobs() {
+  knobConfigs = [];
+  for (let i = 0; i < NUM_KNOBS; i++)
+    knobConfigs.push({ cc: 20 + i, channel: 1, mode: 0, curve: 0 });
+}
+initKnobs();
+
+// ── LOG ───────────────────────────────────────────────────────
+function log(msg, cls = '') {
+  const el = document.getElementById('log');
+  const d  = document.createElement('div');
+  if (cls) d.className = cls;
+  d.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
+}
+function setStatus(text, ok) {
+  const el = document.getElementById('status');
+  el.textContent = text;
+  el.className = 'badge ' + (ok === true ? 'badge-ok' : ok === false ? 'badge-err' : 'badge-warn');
+}
+
+// ── KEEPALIVE ─────────────────────────────────────────────────
+// Envoie 0x50 toutes les 3s pour maintenir browserConnected=true côté Arduino.
+// Sans ça, l'Arduino arrête d'envoyer les touch info après 6s.
+function startKeepalive() {
+  stopKeepalive();
+  keepaliveTimer = setInterval(() => {
+    if (midiOutput) {
+      midiOutput.send([0xF0, SYSEX_MFRID, SYSEX_DEVID, 0x50, 0x00, 0xF7]);
+      // Pulse visuel
+      const dot = document.getElementById('kaDot');
+      dot.classList.add('alive');
+      setTimeout(() => dot.classList.remove('alive'), 300);
+    }
+  }, KEEPALIVE_MS);
+}
+function stopKeepalive() {
+  if (keepaliveTimer) { clearInterval(keepaliveTimer); keepaliveTimer = null; }
+  document.getElementById('kaDot').classList.remove('alive');
+}
+
+// ── ENVOI SYSEX ───────────────────────────────────────────────
+function send(cmd, data) {
+  if (!midiOutput) { log('❌ Pas de port de sortie.', 'err'); return false; }
+  const msg = [0xF0, SYSEX_MFRID, SYSEX_DEVID, cmd, ...data, 0xF7];
+  log(`📤 TX CMD=0x${cmd.toString(16).toUpperCase().padStart(2,'0')} [${data.join(',')}]`, 'tx');
+  midiOutput.send(msg);
+  return true;
+}
+
+// ── RÉCEPTION SYSEX ───────────────────────────────────────────
+function handleMidiMessage(e) {
+  const d = e.data;
+  if (d[0] !== 0xF0 || d[d.length - 1] !== 0xF7) return;
+
+  const inner   = d.slice(1, d.length - 1);
+  if (inner[0] !== SYSEX_MFRID || inner[1] !== SYSEX_DEVID) return;
+
+  const cmd     = inner[2];
+  const payload = inner.slice(3);
+
+  // 0x51 DUMP : CC[8] + modes[8] + curves[8] + channel + bank = 26 octets
+  if (cmd === 0x51) {
+    if (payload.length < 25) { log(`❌ Dump trop court: ${payload.length} octets.`, 'err'); return; }
+    for (let i = 0; i < NUM_KNOBS; i++) {
+      knobConfigs[i].cc      = payload[i];
+      knobConfigs[i].mode    = payload[8 + i];
+      knobConfigs[i].curve   = payload[16 + i];
+      knobConfigs[i].channel = payload[24];
+    }
+    renderKnobList();
+    log(`✅ Dump OK — CC=[${Array.from(payload.slice(0, 8))}] Ch=${payload[24]}`, 'ok');
+    return;
+  }
+
+  // 0x62 TOUCH : [idx, rawVal, curvedVal, mode, curve]
+  if (cmd === 0x62) {
+    if (payload.length < 5) return;
+    const idx = payload[0], raw = payload[1], curved = payload[2],
+          mode = payload[3], curve = payload[4];
+    if (idx >= NUM_KNOBS) return;
+
+    document.getElementById('tName')  .textContent = `Knob ${idx + 1}`;
+    document.getElementById('tCh')    .textContent = knobConfigs[idx].channel;
+    document.getElementById('tCC')    .textContent = knobConfigs[idx].cc;
+    document.getElementById('tRaw')   .textContent = raw;
+    document.getElementById('tCurved').textContent = curved;
+    document.getElementById('tMode')  .textContent = mode === 0 ? 'Normal' : 'Switch';
+    document.getElementById('tCurve') .textContent = CURVE_NAMES[curve] || `#${curve}`;
+
+    document.querySelectorAll('.knob-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+    const bar = document.getElementById(`bar-${idx}`);
+    if (bar) bar.style.width = ((curved / 127) * 100).toFixed(1) + '%';
+    const num = document.getElementById(`val-${idx}`);
+    if (num) num.textContent = curved;
+    return;
+  }
+
+  // 0x70 ACK
+  if (cmd === 0x70) {
+    if (payload.length >= 1)
+      log(`✅ ACK CMD=0x${payload[0].toString(16).toUpperCase().padStart(2,'0')}`, 'ack');
+    return;
+  }
+
+  // 0x71 ERROR
+  if (cmd === 0x71) {
+    if (payload.length >= 2)
+      log(`❌ ERROR CMD=0x${payload[0].toString(16).toUpperCase().padStart(2,'0')} code=${payload[1]}`, 'err');
+    return;
+  }
+
+  log(`📥 CMD inconnu 0x${cmd.toString(16).toUpperCase()}`, 'warn');
+}
+
+// ── RENDU KNOBS ───────────────────────────────────────────────
+function renderKnobList() {
+  const container = document.getElementById('knobList');
+  container.innerHTML = '';
+  knobConfigs.forEach((cfg, idx) => {
+    const div = document.createElement('div');
+    div.className = 'knob-item';
+    const curveOpts = CURVE_NAMES.map((n, i) =>
+      `<option value="${i}" ${cfg.curve === i ? 'selected' : ''}>${n}</option>`).join('');
+    div.innerHTML = `
+      <span class="idx">Knob ${idx + 1}</span>
+      <input type="number" class="cc-in"  data-idx="${idx}" value="${cfg.cc}"      min="1"  max="127">
+      <input type="number" class="ch-in"  data-idx="${idx}" value="${cfg.channel}" min="1"  max="16">
+      <select class="mode-sel" data-idx="${idx}">
+        <option value="0" ${cfg.mode === 0 ? 'selected' : ''}>Normal</option>
+        <option value="1" ${cfg.mode === 1 ? 'selected' : ''}>Switch</option>
+      </select>
+      <select class="curve-sel" data-idx="${idx}">${curveOpts}</select>
+      <div class="knob-bar-wrap"><div class="knob-bar" id="bar-${idx}"></div></div>
+      <span class="val-num" id="val-${idx}">0</span>`;
+    container.appendChild(div);
+  });
+
+  container.querySelectorAll('.cc-in').forEach(el => el.addEventListener('change', function() {
+    const idx = +this.dataset.idx, val = Math.min(127, Math.max(1, +this.value || 1));
+    this.value = val; knobConfigs[idx].cc = val; send(0x10, [idx, val]);
+  }));
+
+  container.querySelectorAll('.ch-in').forEach(el => el.addEventListener('change', function() {
+    const val = Math.min(16, Math.max(1, +this.value || 1));
+    container.querySelectorAll('.ch-in').forEach(i => i.value = val);
+    knobConfigs.forEach(c => c.channel = val);
+    send(0x40, [val]);
+  }));
+
+  container.querySelectorAll('.mode-sel').forEach(el => el.addEventListener('change', function() {
+    const idx = +this.dataset.idx, val = +this.value;
+    knobConfigs[idx].mode = val; send(0x60, [idx, val]);
+  }));
+
+  container.querySelectorAll('.curve-sel').forEach(el => el.addEventListener('change', function() {
+    const idx = +this.dataset.idx, val = +this.value;
+    knobConfigs[idx].curve = val; send(0x61, [idx, val]);
+  }));
+}
+
+// ── APERÇU COURBES ────────────────────────────────────────────
+function drawCurvePreviews() {
+  const container = document.getElementById('curvePreviews');
+  container.innerHTML = '';
+  CURVE_NAMES.forEach((name, ci) => {
+    const card = document.createElement('div');
+    card.className = 'curve-card';
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 80;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, 80, 80);
+    ctx.strokeStyle = '#313244'; ctx.lineWidth = 1;
+    [20, 40, 60].forEach(v => {
+      ctx.beginPath(); ctx.moveTo(v, 0); ctx.lineTo(v, 80); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, v); ctx.lineTo(80, v); ctx.stroke();
+    });
+    ctx.strokeStyle = CURVE_COLORS[ci]; ctx.lineWidth = 2; ctx.beginPath();
+    for (let x = 0; x <= 127; x++) {
+      const y = CURVE_FN[ci](x);
+      const px = (x / 127) * 76 + 2, py = 78 - (y / 127) * 76;
+      x === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    const lbl = document.createElement('div');
+    lbl.className = 'cname'; lbl.style.color = CURVE_COLORS[ci]; lbl.textContent = name;
+    card.appendChild(canvas); card.appendChild(lbl); container.appendChild(card);
+  });
+}
+
+// ── PORTS MIDI ────────────────────────────────────────────────
+async function initMIDI() {
+  try {
+    midiAccess = await navigator.requestMIDIAccess({ sysex: true });
+    log('✅ Accès MIDI accordé.', 'ok');
+    refreshPorts();
+    midiAccess.onstatechange = () => { log('🔄 Port MIDI changé.', 'warn'); refreshPorts(); };
+  } catch (e) {
+    log(`❌ Erreur MIDI: ${e.message}`, 'err');
+    setStatus('❌ Erreur MIDI', false);
+  }
+}
+
+function refreshPorts() {
+  if (!midiAccess) return;
+  const outs = Array.from(midiAccess.outputs.values());
+  const ins  = Array.from(midiAccess.inputs.values());
+  const outSel = document.getElementById('outSelect');
+  const inSel  = document.getElementById('inSelect');
+  const po = outSel.value, pi = inSel.value;
+
+  outSel.innerHTML = '';
+  inSel.innerHTML  = '<option value="">-- aucune --</option>';
+  outs.forEach(d => { const o = document.createElement('option'); o.value = d.id; o.textContent = d.name; outSel.appendChild(o); });
+  ins.forEach(d  => { const o = document.createElement('option'); o.value = d.id; o.textContent = d.name; inSel.appendChild(o);  });
+
+  if (po) outSel.value = po;
+  if (pi) inSel.value  = pi;
+
+  // Auto-match entrée par nom (exact puis partiel)
+  if (!inSel.value) {
+    const chosen = outs.find(o => o.id === outSel.value);
+    if (chosen) {
+      let match = ins.find(i => i.name === chosen.name);
+      if (!match) match = ins.find(i => i.name.includes(chosen.name) || chosen.name.includes(i.name));
+      if (match) inSel.value = match.id;
+    }
+  }
+  document.getElementById('portNote').textContent =
+    `OUT: [${outs.map(d => d.name).join(' | ')}]  ·  IN: [${ins.map(d => d.name).join(' | ')}]`;
+}
+
+async function connect() {
+  if (!midiAccess) { log('❌ MIDI non initialisé.', 'err'); return; }
+  const outId = document.getElementById('outSelect').value;
+  const inId  = document.getElementById('inSelect').value;
+  if (!outId) { log('❌ Sélectionnez un port de sortie.', 'err'); return; }
+
+  const out = midiAccess.outputs.get(outId);
+  const inp = inId ? midiAccess.inputs.get(inId) : null;
+  if (!out) { log('❌ Port de sortie introuvable.', 'err'); return; }
+
+  if (midiInput) midiInput.onmidimessage = null;
+  stopKeepalive();
+
+  midiOutput = out;
+  midiInput  = inp || null;
+
+  if (midiInput) {
+    midiInput.onmidimessage = handleMidiMessage;
+    log(`✅ OUT: "${midiOutput.name}" | IN: "${midiInput.name}"`, 'ok');
+  } else {
+    log(`⚠️ OUT: "${midiOutput.name}" — pas d'entrée, réponses non reçues.`, 'warn');
+  }
+
+  setStatus(`✅ ${midiOutput.name}`, true);
+
+  // Dump initial + démarrage keepalive
+  setTimeout(() => {
+    send(0x50, [0]);
+    startKeepalive();
+  }, 200);
+}
+
+function debugAllPorts() {
+  if (!midiAccess) return;
+  Array.from(midiAccess.inputs.values()).forEach(inp => {
+    inp.onmidimessage = handleMidiMessage;
+    log(`🐛 Écoute: "${inp.name}"`, 'ok');
+  });
+}
+
+// ── BOUTONS ───────────────────────────────────────────────────
+document.getElementById('connectBtn') .addEventListener('click', connect);
+document.getElementById('saveBankBtn').addEventListener('click', () => send(0x31, [1]));
+document.getElementById('loadBankBtn').addEventListener('click', () => {
+  send(0x30, [1]);
+  setTimeout(() => send(0x50, [0]), 300);
+});
+document.getElementById('dumpBtn')    .addEventListener('click', () => send(0x50, [0]));
+document.getElementById('debugBtn')   .addEventListener('click', debugAllPorts);
+document.getElementById('clearLogBtn').addEventListener('click', () => document.getElementById('log').innerHTML = '');
+
+// ── INIT ──────────────────────────────────────────────────────
+renderKnobList();
+drawCurvePreviews();
+setStatus('⏳ En attente', null);
+
+if (!navigator.requestMIDIAccess) {
+  log('❌ WebMIDI non supporté. Utilisez Chrome ou Edge.', 'err');
+  setStatus('❌ Non supporté', false);
+} else {
+  initMIDI();
+}
+</script>
+</body>
+</html>

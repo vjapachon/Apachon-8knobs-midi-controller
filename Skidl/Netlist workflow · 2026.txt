@@ -1,0 +1,155 @@
+# How to Use the .net File — Apachon 8-Knobs
+
+The apachon_8knobs.net file is a netlist: a text description of every component and every connection in your circuit. It is the bridge between your SKiDL Python script and the physical PCB layout.
+
+## What the .net file contains
+
+Open it in Notepad — you'll see three sections:
+
+1. COMPONENTS — every part with its reference (U1, IC1, RV1–RV8, C1, C2), value, and footprint.
+2. NETS — every electrical net and which pins connect to it.
+3. END — end of file marker.
+
+Example excerpt:
+
+    (comp (ref U1)
+      (value Pro_Micro_ATmega32U4)
+      (footprint Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical))
+
+    (net (code 1) (name VCC)
+      (node (ref U1) (pin 24))
+      (node (ref IC1) (pin 24))
+      (node (ref RV1) (pin 1))
+      ...)
+
+## What you can do with the .net file
+
+| Use case | Tool |
+|---|---|
+| Create a PCB layout in KiCad | KiCad Pcbnew (Import Netlist) |
+| Open in another EDA (Altium, Eagle, EasyEDA) | Their netlist importer |
+| Verify electrical connections | Any text editor |
+| Back-annotate into a schematic | KiCad Eeschema (limited support) |
+| Automated testing / simulation | Custom scripts |
+
+## Method 1 — Import into KiCad PCB Editor (recommended)
+
+This is the standard workflow. You'll go from netlist to a placed PCB in 5 minutes.
+
+Step 1 — Create a KiCad project
+
+1. Open KiCad (the project manager).
+2. File → New Project → name it Apachon_8Knobs → save.
+3. This creates Apachon_8Knobs.kicad_pro, .kicad_sch, and .kicad_pcb.
+
+Step 2 — Open the PCB Editor
+
+1. In the KiCad project window, click the PCB Editor icon (green PCB).
+2. Pcbnew opens with an empty board.
+
+Step 3 — Import the netlist
+
+1. In Pcbnew: File → Import → Netlist…
+2. Select apachon_8knobs.net.
+3. A dialog appears showing:
+   - Components to add (U1, IC1, RV1–RV8, C1, C2)
+   - Nets (VCC, GND, MUX_S0..S3, MUX_SIG, MUX_CH0..CH15)
+4. Click Update PCB (or Read Current Netlist).
+
+Step 4 — Components appear in Pcbnew
+
+All footprints drop onto the board, stacked at the origin (top-left corner). You'll see them bunched together. This is normal.
+
+Step 5 — Place and route
+
+1. Press G for grid settings — set 1.00 mm.
+2. Drag each component to a sensible position (see the layout recommendations in the main README).
+3. Draw the board outline on the Edge.Cuts layer.
+4. Route with X (manual) or use an autorouter plugin.
+5. Add a GND copper plane on both faces.
+6. Run DRC (Ctrl+Shift+D) → fix all errors.
+
+Step 6 — Generate Gerbers
+
+File → Fabrication → Gerbers → Protel extensions → Generate.
+Then Generate Drill Files.
+Zip the output → send to JLCPCB / PCBWay.
+
+## Method 2 — Import into Altium / Eagle / EasyEDA
+
+The .net file is KiCad format. If you need another format, regenerate with a different tool argument in the Python script:
+
+    generate_netlist(tool=ORCADPCB2)   # OrCAD / Altium compatible
+    generate_netlist(tool=ALLEGRO)     # Cadence Allegro
+    generate_netlist(tool=EAGLE)       # Eagle
+
+Then import into the target software's netlist reader.
+
+## Method 3 — Re-import after changing the circuit
+
+Whenever you edit apachon_8knobs.py (add a knob, change a pin, swap a footprint):
+
+1. Re-run the script:
+       python apachon_8knobs.py
+2. This regenerates apachon_8knobs.net with the new connections.
+3. In Pcbnew: File → Import → Netlist… → same file.
+4. KiCad diffs the netlist against the current PCB and shows:
+   - New components to add
+   - Removed components
+   - Changed connections
+5. Click Update PCB.
+
+Your existing placement and routing are preserved. Only the diff is applied.
+
+## Method 4 — Verify the netlist manually
+
+Open apachon_8knobs.net in a text editor and search for key nets:
+
+    Ctrl+F → "MUX_CH0"     # should connect to IC1 pin 9 and RV1 pin 2
+    Ctrl+F → "VCC"         # should connect to U1, IC1, all pots pin 1, both caps pin 1
+    Ctrl+F → "GND"         # should connect to U1 pins 3+4, IC1 pins 12+15, all pots pin 3, both caps pin 2
+    Ctrl+F → "MUX_S0"      # should connect to U1 pin 7 and IC1 pin 10
+
+If any net is missing or wrong, fix the Python script and regenerate.
+
+## Method 5 — Share the netlist
+
+The .net file is portable. You can send it to someone who uses:
+- Altium Designer
+- Eagle
+- EasyEDA
+- Proteus
+- OrCAD
+- Any EDA with a netlist importer
+
+They import it and get the exact same circuit.
+
+## What NOT to do with the .net file
+
+- Don't open it in KiCad Schematic Editor expecting a visual schematic. A netlist is text, not a drawing. Eeschema cannot render a .net file directly.
+- Don't edit it by hand. If you need changes, edit the Python script and regenerate.
+- Don't rename it. The KiCad importer matches by internal component references, not filename.
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| "Footprint not found" on import | Footprint name wrong — check your KiCad version has it (see Alps RK163 example) |
+| "Duplicate reference" | Two components with same ref in the netlist — regenerate from a clean script |
+| "Pin not found" | Pin name mismatch between symbol and netlist — verify with the diagnostic script |
+| Components import but no nets | Netlist syntax corrupted — regenerate the .net |
+| Nothing appears in Pcbnew | You opened the wrong file — verify File → Import → Netlist was used |
+
+## Summary — typical workflow
+
+    1. Edit apachon_8knobs.py       (SKiDL circuit description)
+    2. Run python apachon_8knobs.py (generates .net)
+    3. Open KiCad PCB Editor
+    4. File → Import → Netlist → apachon_8knobs.net
+    5. Place components, route, add GND plane
+    6. Run DRC → fix errors
+    7. Generate Gerbers → order PCB
+
+That's it. The .net file is the input to KiCad's PCB Editor. Everything else (schematic, 3D view, Gerbers) flows from that.
+
+Apachon CTRL-01-MK1 · Netlist workflow · 2026

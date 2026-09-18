@@ -1,0 +1,29 @@
+ERC WARNING: Only one pin (PASSIVE pin 17/I14 of CD74HC4067M/IC1) attached to net MUX_CH14.
+ERC WARNING: Only one pin (PASSIVE pin 19/I12 of CD74HC4067M/IC1) attached to net MUX_CH12.
+ERC WARNING: Only one pin (PASSIVE pin 8/I1 of CD74HC4067M/IC1) attached to net MUX_CH1.
+ERC WARNING: Only one pin (PASSIVE pin 22/I9 of CD74HC4067M/IC1) attached to net MUX_CH9.
+ERC WARNING: Insufficient drive current on net VCC for pin POWER-IN pin 24/VCC of CD74HC4067M/IC1.
+ERC WARNING: Only one pin (PASSIVE pin 20/I11 of CD74HC4067M/IC1) attached to net MUX_CH11.
+ERC WARNING: Only one pin (PASSIVE pin 6/I3 of CD74HC4067M/IC1) attached to net MUX_CH3.
+ERC WARNING: Only one pin (PASSIVE pin 7/I2 of CD74HC4067M/IC1) attached to net MUX_CH2.
+ERC WARNING: Only one pin (PASSIVE pin 4/I5 of CD74HC4067M/IC1) attached to net MUX_CH5.
+ERC WARNING: Insufficient drive current on net GND for pin POWER-IN pin 12/GND of CD74HC4067M/IC1.
+ERC WARNING: Unconnected pin: PASSIVE pin 1/Pin_1 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 2/Pin_2 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 5/Pin_5 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 6/Pin_6 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 9/Pin_9 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 12/Pin_12 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 13/Pin_13 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 14/Pin_14 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 15/Pin_15 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 16/Pin_16 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 17/Pin_17 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 19/Pin_19 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 20/Pin_20 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 21/Pin_21 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 22/Pin_22 of Conn_02x12_Odd_Even/U1.
+ERC WARNING: Unconnected pin: PASSIVE pin 23/Pin_23 of Conn_02x12_Odd_Even/U1.
+ERC INFO: 26 warnings found while running ERC.
+ERC INFO: 0 errors found while running ERC.
+

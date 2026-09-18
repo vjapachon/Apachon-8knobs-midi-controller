@@ -1,0 +1,33 @@
+WARNING: fp-lib-table file was not found. Component footprints are not available.
+WARNING: fp-lib-table file was not found. Component footprints are not available.
+WARNING: fp-lib-table file was not found. Component footprints are not available.
+WARNING: fp-lib-table file was not found. Component footprints are not available.
+WARNING: fp-lib-table file was not found. Component footprints are not available.
+WARNING: Missing tag on Conn_02x12_Odd_Even instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:45.
+WARNING: Random tag Njm53zua5B generated for Conn_02x12_Odd_Even.
+WARNING: Missing tag on CD74HC4067M instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:73.
+WARNING: Random tag zgLiJFW1aT generated for CD74HC4067M.
+WARNING: Missing tag on C instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:103.
+WARNING: Random tag 3e9fdZTnfw generated for C.
+WARNING: Missing tag on C instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:109.
+WARNING: Random tag wLhwvYYLCW generated for C.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag Ae_PFEQBhz generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag utEwAa6g7H generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag Mvp12CTSj6 generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag u7XUDktnmU generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag 2LS81nadS6 generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag 07x3elBMBr generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag HXM4U_vIkp generated for R_Potentiometer.
+WARNING: Missing tag on R_Potentiometer instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\apachon_8knobs.py:123.
+WARNING: Random tag xS41U1B7CP generated for R_Potentiometer.
+WARNING: Missing tag on  instantiated at C:\Users\Mega-PC\Desktop\Apa ctrl mk3\8 Knobs Dynamic midi contorller\07-Apachon_8knobs_fixed\claude\Skidl\<frozen importlib._bootstrap>:488.
+INFO: 30 warnings found while generating netlist.
+INFO: 0 errors found while generating netlist.
+

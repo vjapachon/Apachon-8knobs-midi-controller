@@ -1,0 +1,665 @@
+(export 
+  (version "D")
+  (design
+    (source "apachon_8knobs.py")
+    (date "09/12/2026 02:46 PM")
+    (tool "SKiDL (2.3.0)")
+    (sheet
+      (number 1)
+      (name "/")
+      (tstamps "/")
+      (title_block
+        (title)
+        (company)
+        (rev)
+        (date)
+        (source "apachon_8knobs.py")
+        (comment
+          (number "1")
+          (value ""))
+        (comment
+          (number "2")
+          (value ""))
+        (comment
+          (number "3")
+          (value ""))
+        (comment
+          (number "4")
+          (value ""))
+        (comment
+          (number "5")
+          (value ""))
+        (comment
+          (number "6")
+          (value ""))
+        (comment
+          (number "7")
+          (value ""))
+        (comment
+          (number "8")
+          (value ""))
+        (comment
+          (number "9")
+          (value "")))))
+  (components
+    (comp
+      (ref "C1")
+      (value "100nF")
+      (description "Unpolarized capacitor")
+      (footprint "Capacitor_SMD:C_0805_2012Metric")
+      (fields
+        (field
+          (name "Description") "Unpolarized capacitor")
+        (field
+          (name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "3e9fdZTnfw")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:103"))
+      (libsource
+        (lib "Device")
+        (part "C"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "4c3283b5-ada6-5d29-a9bb-90d517d957ca"))
+    (comp
+      (ref "C2")
+      (value "100nF")
+      (description "Unpolarized capacitor")
+      (footprint "Capacitor_SMD:C_0805_2012Metric")
+      (fields
+        (field
+          (name "Description") "Unpolarized capacitor")
+        (field
+          (name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "wLhwvYYLCW")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:109"))
+      (libsource
+        (lib "Device")
+        (part "C"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "a15c33ce-1df9-5877-b417-b99fe564b4ef"))
+    (comp
+      (ref "IC1")
+      (value "CD74HC4067M")
+      (description "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
+      (footprint "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
+      (fields
+        (field
+          (name "Description") "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
+        (field
+          (name "Footprint") "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
+        (field
+          (name "Datasheet") "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
+        (field
+          (name "SKiDL Tag") "zgLiJFW1aT")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:73"))
+      (libsource
+        (lib "74xx")
+        (part "CD74HC4067M"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "0c158c45-85b0-55dc-a329-1e97ec5122a5"))
+    (comp
+      (ref "RV1")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "Ae_PFEQBhz")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "4ce92613-c2c9-57b0-ae5c-5320ca4f0d95"))
+    (comp
+      (ref "RV2")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "utEwAa6g7H")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "7ef20d71-a673-5906-95bd-588d2fe35862"))
+    (comp
+      (ref "RV3")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "Mvp12CTSj6")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "55826ee3-2182-5a3c-bb46-e3f46f68b4ce"))
+    (comp
+      (ref "RV4")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "u7XUDktnmU")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "fef270be-dd29-5471-84fe-df236b1057e0"))
+    (comp
+      (ref "RV5")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "2LS81nadS6")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "07da473e-af23-53e0-97d4-b80d7fd554c0"))
+    (comp
+      (ref "RV6")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "07x3elBMBr")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "b94b975f-8160-508e-922d-0dc77606825a"))
+    (comp
+      (ref "RV7")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "HXM4U_vIkp")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "692b0c66-2275-5816-8f2e-fd475c12344d"))
+    (comp
+      (ref "RV8")
+      (value "10K")
+      (description "Potentiometer")
+      (footprint "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+      (fields
+        (field
+          (name "Description") "Potentiometer")
+        (field
+          (name "Footprint") "Potentiometer_THT:Potentiometer_Alps_RK163_Single_Horizontal")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "xS41U1B7CP")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:123"))
+      (libsource
+        (lib "Device")
+        (part "R_Potentiometer"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "4ba861fa-2c10-54dd-9591-31aa3f1d47e4"))
+    (comp
+      (ref "U1")
+      (value "Pro_Micro_ATmega32U4")
+      (description "Generic connector, double row, 02x12, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)")
+      (footprint "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical")
+      (fields
+        (field
+          (name "Description") "Generic connector, double row, 02x12, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)")
+        (field
+          (name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "Njm53zua5B")
+        (field
+          (name "SKiDL Line") "apachon_8knobs.py:45"))
+      (libsource
+        (lib "Connector_Generic")
+        (part "Conn_02x12_Odd_Even"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "574db653-aed8-5c43-b9d3-2c2969232a45")))
+  (nets
+    (net
+      (code 1)
+      (name "GND")
+      (class "Default")
+      (node
+        (ref "C1")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "C2")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "IC1")
+        (pin "12")
+        (pintype "POWER-IN"))
+      (node
+        (ref "IC1")
+        (pin "15")
+        (pintype "INPUT"))
+      (node
+        (ref "RV1")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV2")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV3")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV4")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV5")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV6")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV7")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV8")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "4")
+        (pintype "PASSIVE")))
+    (net
+      (code 2)
+      (name "MUX_CH0")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV1")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 3)
+      (name "MUX_CH1")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 4)
+      (name "MUX_CH10")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "21")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV6")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 5)
+      (name "MUX_CH11")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 6)
+      (name "MUX_CH12")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "19")
+        (pintype "PASSIVE")))
+    (net
+      (code 7)
+      (name "MUX_CH13")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "18")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV7")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 8)
+      (name "MUX_CH14")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 9)
+      (name "MUX_CH15")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV8")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 10)
+      (name "MUX_CH2")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 11)
+      (name "MUX_CH3")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 12)
+      (name "MUX_CH4")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV2")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 13)
+      (name "MUX_CH5")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "4")
+        (pintype "PASSIVE")))
+    (net
+      (code 14)
+      (name "MUX_CH6")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV3")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 15)
+      (name "MUX_CH7")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV4")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 16)
+      (name "MUX_CH8")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "23")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV5")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 17)
+      (name "MUX_CH9")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 18)
+      (name "MUX_S0")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "10")
+        (pintype "INPUT"))
+      (node
+        (ref "U1")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 19)
+      (name "MUX_S1")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "11")
+        (pintype "INPUT"))
+      (node
+        (ref "U1")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 20)
+      (name "MUX_S2")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "14")
+        (pintype "INPUT"))
+      (node
+        (ref "U1")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 21)
+      (name "MUX_S3")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "13")
+        (pintype "INPUT"))
+      (node
+        (ref "U1")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 22)
+      (name "MUX_SIG")
+      (class "Default")
+      (node
+        (ref "IC1")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 23)
+      (name "VCC")
+      (class "Default")
+      (node
+        (ref "C1")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "C2")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "IC1")
+        (pin "24")
+        (pintype "POWER-IN"))
+      (node
+        (ref "RV1")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV2")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV3")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV4")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV5")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV6")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV7")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "RV8")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "24")
+        (pintype "PASSIVE")))))
